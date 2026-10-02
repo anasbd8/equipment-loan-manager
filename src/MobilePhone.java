@@ -13,7 +13,7 @@ public class MobilePhone extends Equipment {
 
     @Override
     public String getDescription() {
-        return "Mobile phone: " + getName() + " || " + " ID: " + getInventoryId() + " || " + " OS: " + operatingSystem;
+        return "Mobile phone: " + getName() + " || " + "ID: " + getInventoryId() + " || " + "OS: " + operatingSystem;
     }
 
     @Override

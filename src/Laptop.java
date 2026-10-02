@@ -13,7 +13,7 @@ public class Laptop extends Equipment {
 
     @Override
     public String getDescription() {
-        return "Laptop: "+ getName() + " ||" + " ID: " + getInventoryId() +" || "+ "RAM: " + ramGb + " GB";
+        return "Laptop: "+ getName() + " || " + "ID: " + getInventoryId() +" || "+ "RAM: " + ramGb + " GB";
     }
 
     @Override
