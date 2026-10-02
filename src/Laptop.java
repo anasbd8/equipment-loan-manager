@@ -1,4 +1,4 @@
-public class Laptop extends Equipment {
+public class Laptop extends Equipment implements Loanable{
 
     private final int ramGb;
 

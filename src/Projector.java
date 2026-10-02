@@ -1,4 +1,4 @@
-public class Projector extends Equipment {
+public class Projector extends Equipment implements Loanable{
 
     private final int brightnessLumens;
 

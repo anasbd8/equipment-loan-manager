@@ -1,4 +1,4 @@
-public class MobilePhone extends Equipment {
+public class MobilePhone extends Equipment implements Loanable{
 
     private final String operatingSystem;
 
