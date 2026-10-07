@@ -7,7 +7,6 @@ public class EquipmentManager {
         if (equipment == null) {
             throw new IllegalArgumentException("Equipment must not be null");
         }
-
         for (Equipment existingEquipment : equipmentList) {
             if (existingEquipment.getInventoryId().equals(equipment.getInventoryId())) {
                 throw new IllegalArgumentException(
@@ -15,7 +14,6 @@ public class EquipmentManager {
                 );
             }
         }
-
         equipmentList.add(equipment);
     }
 
@@ -25,4 +23,16 @@ public class EquipmentManager {
         }
     }
 
+    public Equipment findEquipmentById(String inventoryId) {
+        if (inventoryId == null || inventoryId.isBlank()) {
+            throw new IllegalArgumentException("Inventory ID must not be blank.");
+        }
+        String searchId = inventoryId.trim();
+        for (Equipment equipment : equipmentList) {
+            if (equipment.getInventoryId().equals(searchId)) {
+                return equipment;
+            }
+        }
+        return null;
+    }
 }
