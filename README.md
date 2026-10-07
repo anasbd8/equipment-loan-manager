@@ -1,4 +1,4 @@
-# Equipment Loan Manager — Project Plan
+# Equipment Loan Manager
 
 ## Author
 
@@ -10,19 +10,54 @@ A Java console application for managing equipment loans at a company.
 Users will be able to register, search for, check out, and return
 laptops, mobile phones, and projectors, as well as view overdue loans.
 
+## Current Status
+
+The project is under active development.
+
+Implemented:
+- Equipment, Laptop, MobilePhone, and Projector with field validation.
+- Loanable interface implemented by all three equipment types.
+- A polymorphic ArrayList<Equipment> managed by EquipmentManager.
+- Registration through addEquipment(), including null and duplicate ID checks.
+- Exact, case-sensitive inventory ID search through findEquipmentById().
+  Leading and trailing whitespace is removed; invalid IDs are rejected and
+  missing IDs return null.
+- ConsoleMenu with a repeated menu, equipment listing, invalid-option messages,
+  and an exit option.
+
+Not yet connected or implemented:
+- Main currently lists five sample items and exits; it does not start ConsoleMenu.
+- The menu's registration and search methods are empty placeholders.
+- Name search, loans, returns, overdue loans, and file storage are planned.
+- Equipment display still belongs to EquipmentManager; moving output to
+  ConsoleMenu is a planned step toward separating presentation and business logic.
+
+## How to Run
+
+1. Clone or download this repository.
+2. Open the project folder in IntelliJ IDEA.
+3. Configure an installed JDK under File > Project Structure > Project SDK.
+   The source uses String.isBlank(), which requires Java 11 or later.
+4. Open src/Main.java and run its main method.
+
+The current entry point prints three laptops, one mobile phone, and one
+projector, then exits. No interactive input is requested yet.
+Once Main creates ConsoleMenu with the existing manager and calls start(),
+the menu below will be available.
+
 ## Superclass
 
 - Name: Equipment
 - Common fields:
-    - inventoryId: a unique identifier for each item.
-    - name: the name of the equipment.
+  - inventoryId: a unique identifier for each item.
+  - name: the name of the equipment.
 - Common methods:
-    - getDescription(): returns a description of the equipment.
-    - getLoanPeriodDays(): returns the standard loan period in days.
+  - getDescription(): returns a description of the equipment.
+  - getLoanPeriodDays(): returns the standard loan period in days.
 
-Equipment will be an abstract superclass.
-The equipment collection will use an ArrayList<Equipment>.
-When the application loops through this collection, it will call
+Equipment is an abstract superclass.
+EquipmentManager stores the equipment in an ArrayList<Equipment>.
+When the application loops through this collection, it calls
 the overridden methods for each item's actual type.
 
 ## Subclasses
@@ -54,15 +89,17 @@ and may be adjusted during development.
 - Method: getLoanPeriodDays()
 - Implemented by: Laptop, MobilePhone, and Projector.
 
-The loan service will use a Loanable reference to calculate a due date.
+The planned loan service will use a Loanable reference to calculate a due date.
+Interface-reference examples have been removed from Main; practical interface
+polymorphism will be integrated into the loan workflow.
 This allows the same operation to handle different equipment types
 through the interface.
 
 ## Supporting Classes and Responsibilities
 
-### Loan
+### Loan — Planned
 
-Stores information about an equipment loan:
+This class is not implemented yet. It will store information about an equipment loan:
 
 - Equipment inventory ID.
 - Borrower name.
@@ -74,9 +111,11 @@ Stores information about an equipment loan:
 
 - Maintains the equipment collection.
 - Registers equipment and checks for duplicate inventory IDs.
-- Searches for equipment by name or inventory ID.
+- Searches for equipment by inventory ID. Name search is planned.
 
-### LoanService
+### LoanService — Planned
+
+This class is not implemented yet. Its planned responsibilities are:
 
 - Maintains the loan collection.
 - Checks whether equipment is available.
@@ -92,16 +131,28 @@ the same information in two places.
 
 - Displays the menu in a loop.
 - Reads user input.
-- Calls the relevant manager or service.
-- Displays results and error messages.
+- Calls the manager to list equipment.
+- Displays invalid-option messages and an exit message.
+- Contains empty registration and search methods awaiting implementation.
 
 Business rules will remain outside the menu class.
 
 ### Main
 
-Creates the required objects and starts the application.
+Creates EquipmentManager, registers five fictional sample items, and lists them.
+Connecting ConsoleMenu to this entry point is the next integration step.
 
-## Menu
+## Current ConsoleMenu
+
+1. List equipment — implemented through EquipmentManager.
+2. Register equipment — placeholder; currently performs no action.
+3. Find equipment by ID — placeholder; currently performs no action.
+4. Exit — ends the menu loop.
+
+The menu reads choices as trimmed strings and rejects unsupported values.
+It is not yet launched by Main.
+
+## Planned Full Menu
 
 1. Register equipment.
 2. List all equipment and its availability.
@@ -115,7 +166,11 @@ Search terms will come from user input.
 Overdue loans will be found by comparing due dates with the current date
 and excluding returned loans.
 
-## Error Scenarios
+## Planned Error Scenarios
+
+The scenarios below describe the target interactive workflow. Constructor
+validation, duplicate ID checks, and inventory ID search validation already
+exist. Interactive numeric parsing and loan error handling are not yet implemented.
 
 - A user enters letters, an empty answer, or an unsupported menu option.
   The application will show a helpful message and allow another attempt.
@@ -198,6 +253,10 @@ After implementation begins, explain:
 - What changed from the initial plan and why.
 - How the design could support additional equipment types.
 
-## Project Status
+## Next Steps
 
-Planning stage. Features described above are not yet implemented.
+- Connect ConsoleMenu to Main.
+- Move equipment output from EquipmentManager to ConsoleMenu.
+- Implement menu registration and inventory ID search.
+- Add numeric input parsing and exception handling.
+- Build the planned loan workflow and use Loanable references there.
