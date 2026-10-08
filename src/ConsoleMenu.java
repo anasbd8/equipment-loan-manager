@@ -45,7 +45,32 @@ public class ConsoleMenu {
     }
 
     private void registerEquipment() {
-    }
+        System.out.println("\n Select equipment type: ");
+        System.out.println("1. Laptop");
+        System.out.println("2. Mobile phone");
+        System.out.println("3. Projector");
+        System.out.print("Choice: ");
+        String equipmentType = scanner.nextLine().trim();
+        try {
+            switch (equipmentType) {
+                case "1":
+                    System.out.print("Enter inventory ID:");
+                    String inventoryID = scanner.nextLine().trim();
+                    System.out.print("Enter equipment name: ");
+                    String name = scanner.nextLine().trim();
+                    System.out.print("Enter RAM in GB: ");
+                    int ram = Integer.parseInt(scanner.nextLine().trim());
+                    Laptop laptop = new Laptop(inventoryID, name, ram);
+                    manager.addEquipment(laptop);
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("RAM must be a whole number.");
+        }catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        }
+
 
     private void findEquipment() {
         System.out.println("Enter equipment ID: ");
@@ -58,7 +83,7 @@ public class ConsoleMenu {
             } else {
                 System.out.println(equipment.getDescription());
             }
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
