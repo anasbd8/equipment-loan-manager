@@ -14,7 +14,7 @@ public class ConsoleMenu{
 
         boolean running = true;
         while (running) {
-            System.out.println("Equipment Loan Manager");
+            System.out.println("\n Equipment Loan Manager");
             System.out.println("1. List equipment");
             System.out.println("2. Register equipment");
             System.out.println("3. Find equipment by ID");
