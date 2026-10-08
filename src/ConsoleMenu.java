@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ConsoleMenu{
+public class ConsoleMenu {
 
     private final EquipmentManager manager;
     private final Scanner scanner;
@@ -10,7 +10,7 @@ public class ConsoleMenu{
         this.scanner = new Scanner(System.in);
     }
 
-    public void start(){
+    public void start() {
 
         boolean running = true;
         while (running) {
@@ -21,7 +21,7 @@ public class ConsoleMenu{
             System.out.println("4. Exit");
             System.out.print("Choose an option: ");
 
-            String choice  = scanner.nextLine().trim();
+            String choice = scanner.nextLine().trim();
             switch (choice) {
                 case "1":
                     manager.displayEquipments();
@@ -48,5 +48,18 @@ public class ConsoleMenu{
     }
 
     private void findEquipment() {
+        System.out.println("Enter equipment ID: ");
+
+        try {
+            String inventoryID = scanner.nextLine().trim();
+            Equipment equipment = manager.findEquipmentById(inventoryID);
+            if (equipment == null) {
+                System.out.println("No equipment found with that ID.");
+            } else {
+                System.out.println(equipment.getDescription());
+            }
+        }catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
