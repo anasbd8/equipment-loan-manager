@@ -14,7 +14,7 @@ public class ConsoleMenu {
 
         boolean running = true;
         while (running) {
-            System.out.println("\n Equipment Loan Manager");
+            System.out.println("\nEquipment Loan Manager");
             System.out.println("1. List equipment");
             System.out.println("2. Register equipment");
             System.out.println("3. Find equipment by ID");
@@ -45,7 +45,7 @@ public class ConsoleMenu {
     }
 
     private void registerEquipment() {
-        System.out.println("\n Select equipment type: ");
+        System.out.println("\nSelect equipment type: ");
         System.out.println("1. Laptop");
         System.out.println("2. Mobile phone");
         System.out.println("3. Projector");
@@ -53,7 +53,7 @@ public class ConsoleMenu {
         String equipmentType = scanner.nextLine().trim();
         try {
             switch (equipmentType) {
-                case "1":
+                case "1":{
                     System.out.print("Enter inventory ID:");
                     String inventoryID = scanner.nextLine().trim();
                     System.out.print("Enter equipment name: ");
@@ -63,6 +63,18 @@ public class ConsoleMenu {
                     Laptop laptop = new Laptop(inventoryID, name, ram);
                     manager.addEquipment(laptop);
                     break;
+
+                } case "2":{
+                    System.out.print("Enter inventory ID: ");
+                    String inventoryID = scanner.nextLine().trim();
+                    System.out.print("Enter equipment name: ");
+                    String name = scanner.nextLine().trim();
+                    System.out.println("Enter Operating system: ");
+                    String operatingSystem = scanner.nextLine().trim();
+                    MobilePhone mobilePhone = new MobilePhone(inventoryID, name, operatingSystem);
+                    manager.addEquipment(mobilePhone);
+                    break;
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("RAM must be a whole number.");
