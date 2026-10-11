@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleMenu {
@@ -24,6 +25,7 @@ public class ConsoleMenu {
             System.out.println("4. Exit");
             System.out.println("5. Check out equipment");
             System.out.println("6. Return equipment");
+            System.out.println("7. View overdue loans");
             System.out.print("Choose an option: ");
 
             String choice = scanner.nextLine().trim();
@@ -47,8 +49,11 @@ public class ConsoleMenu {
                 case "6":
                     returnEquipment();
                     break;
+                case "7":
+                    viewOverdueLoans();
+                    break;
                 default:
-                    System.out.println("Invalid option. Please choose 1–6.");
+                    System.out.println("Invalid option. Please choose 1–7.");
                     break;
             }
         }
@@ -138,6 +143,20 @@ public class ConsoleMenu {
             System.out.println(e.getMessage());
         } catch (IllegalStateException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void viewOverdueLoans() {
+        ArrayList<Loan> overdueLoans = loanService.findOverdueLoans(LocalDate.now());
+        if (overdueLoans.isEmpty()) {
+            System.out.println("No overdue loans.");
+            return;
+        }
+
+        for (Loan loan : overdueLoans) {
+            System.out.println("Inventory ID: " + loan.getInventoryId()
+                    + " | Borrower name: " + loan.getBorrowerName()
+                    + " | Due date: " + loan.getDueDate());
         }
     }
 
