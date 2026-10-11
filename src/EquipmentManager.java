@@ -17,6 +17,10 @@ public class EquipmentManager {
         equipmentList.add(equipment);
     }
 
+    public ArrayList<Equipment> getEquipment() {
+        return new ArrayList<>(equipmentList);
+    }
+
     public void displayEquipments() {
         for (Equipment equipment : equipmentList) {
             System.out.println(equipment.getDescription());

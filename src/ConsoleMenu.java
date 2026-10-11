@@ -31,7 +31,7 @@ public class ConsoleMenu {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case "1":
-                    manager.displayEquipments();
+                    listEquipment();
                     break;
                 case "2":
                     registerEquipment();
@@ -58,6 +58,25 @@ public class ConsoleMenu {
             }
         }
 
+    }
+
+    private void listEquipment() {
+        ArrayList<Equipment> equipmentList = manager.getEquipment();
+        if (equipmentList.isEmpty()) {
+            System.out.println("No equipment registered.");
+            return;
+        }
+
+        for (Equipment equipment : equipmentList) {
+            Loan loan = loanService.findActiveLoanByEquipmentId(equipment.getInventoryId());
+            String status;
+            if (loan == null) {
+                status = "Available";
+            } else {
+                status = "On loan";
+            }
+            System.out.println(equipment.getDescription() + " | Status: " + status);
+        }
     }
 
     private void registerEquipment() {
