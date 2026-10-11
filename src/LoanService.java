@@ -36,4 +36,12 @@ public class LoanService {
         return loan;
     }
 
+    public void returnEquipment(String inventoryId, LocalDate returnDate) {
+        Loan loan = findActiveLoanByEquipmentId(inventoryId);
+        if (loan == null) {
+            throw new IllegalStateException("Equipment has no active loan.");
+        }
+        loan.registerReturn(returnDate);
+    }
+
 }

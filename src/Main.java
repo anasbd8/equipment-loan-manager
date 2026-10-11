@@ -52,6 +52,15 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        loanService.returnEquipment(equipment.getInventoryId(), LocalDate.now());
+        System.out.println("Checkout active after return: " + checkedOutLoan.isActive());
+
+        try {
+            loanService.returnEquipment(equipment.getInventoryId(), LocalDate.now());
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+
         menu.start();
     }
 }
