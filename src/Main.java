@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -14,61 +11,6 @@ public class Main {
 
         LoanService loanService = new LoanService();
         ConsoleMenu menu = new ConsoleMenu(manager, loanService);
-
-        LocalDate loanDate = LocalDate.now();
-        Loan loan = new Loan("L001", "Anna Andersson", loanDate, loanDate.plusDays(14));
-        System.out.println("Borrower: " + loan.getBorrowerName());
-        System.out.println("Due date: " + loan.getDueDate());
-        System.out.println("Active loan: " + loan.isActive());
-
-        Loan loan1 = new Loan("L002, ", "Molly Gustavsson",  loanDate, loanDate.plusDays(14));
-        System.out.println("Borrower: " + loan1.getBorrowerName());
-        System.out.println("Due date: " + loan1.getDueDate());
-        System.out.println("Active loan: " + loan1.isActive());
-        System.out.println("Overdue on due date: " + loan.isOverdue(loan.getDueDate()));
-        System.out.println("Overdue one day after due date: " + loan.isOverdue(loan.getDueDate().plusDays(1)));
-
-        loan.registerReturn(loanDate);
-        System.out.println("Return date: " + loan.getReturnDate());
-        System.out.println("Active after return: " + loan.isActive());
-        System.out.println("Overdue one day after due date after return: " + loan.isOverdue(loan.getDueDate().plusDays(1)));
-
-        try {
-            loan.registerReturn(loanDate);
-            throw new AssertionError("A second return must be rejected.");
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
-
-        Equipment equipment = manager.findEquipmentById("L001");
-        Loan checkedOutLoan = loanService.checkout(equipment, "Erik Svensson", LocalDate.now());
-        System.out.println("Checkout due date: " + checkedOutLoan.getDueDate());
-        System.out.println("Checkout active: " + checkedOutLoan.isActive());
-        System.out.println("Due date is 14 days after loan date: "
-                + checkedOutLoan.getDueDate().equals(checkedOutLoan.getLoanDate().plusDays(14)));
-
-        try {
-            loanService.checkout(equipment, "Lisa Karlsson", LocalDate.now());
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
-
-        loanService.returnEquipment(equipment.getInventoryId(), LocalDate.now());
-        System.out.println("Checkout active after return: " + checkedOutLoan.isActive());
-
-        try {
-            loanService.returnEquipment(equipment.getInventoryId(), LocalDate.now());
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
-
-        Equipment availableEquipment = manager.findEquipmentById("L003");
-        Loan overdueLoan = loanService.checkout(availableEquipment, "Sara Lind", LocalDate.now().minusDays(30));
-        ArrayList<Loan> overdueLoans = loanService.findOverdueLoans(LocalDate.now());
-        for (Loan overdue : overdueLoans) {
-            System.out.println("Inventory ID: " + overdue.getInventoryId()
-                    + " | Due date: " + overdue.getDueDate());
-        }
 
         menu.start();
     }

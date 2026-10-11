@@ -21,12 +21,6 @@ public class EquipmentManager {
         return new ArrayList<>(equipmentList);
     }
 
-    public void displayEquipments() {
-        for (Equipment equipment : equipmentList) {
-            System.out.println(equipment.getDescription());
-        }
-    }
-
     public Equipment findEquipmentById(String inventoryId) {
         if (inventoryId == null || inventoryId.isBlank()) {
             throw new IllegalArgumentException("Inventory ID must not be blank.");
