@@ -23,6 +23,7 @@ public class ConsoleMenu {
             System.out.println("3. Find equipment by ID");
             System.out.println("4. Exit");
             System.out.println("5. Check out equipment");
+            System.out.println("6. Return equipment");
             System.out.print("Choose an option: ");
 
             String choice = scanner.nextLine().trim();
@@ -43,8 +44,11 @@ public class ConsoleMenu {
                 case "5":
                     checkoutEquipment();
                     break;
+                case "6":
+                    returnEquipment();
+                    break;
                 default:
-                    System.out.println("Invalid option. Please choose 1–5.");
+                    System.out.println("Invalid option. Please choose 1–6.");
                     break;
             }
         }
@@ -117,6 +121,19 @@ public class ConsoleMenu {
             String borrowerName = scanner.nextLine().trim();
             Loan loan = loanService.checkout(equipment, borrowerName, LocalDate.now());
             System.out.println("Equipment checked out. Due date: " + loan.getDueDate());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void returnEquipment() {
+        try {
+            System.out.print("Enter inventory ID: ");
+            String inventoryId = scanner.nextLine().trim();
+            loanService.returnEquipment(inventoryId, LocalDate.now());
+            System.out.println("Equipment returned successfully.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (IllegalStateException e) {
