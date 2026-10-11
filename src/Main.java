@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -59,6 +60,14 @@ public class Main {
             loanService.returnEquipment(equipment.getInventoryId(), LocalDate.now());
         } catch (IllegalStateException e) {
             System.out.println(e.getMessage());
+        }
+
+        Equipment availableEquipment = manager.findEquipmentById("L003");
+        Loan overdueLoan = loanService.checkout(availableEquipment, "Sara Lind", LocalDate.now().minusDays(30));
+        ArrayList<Loan> overdueLoans = loanService.findOverdueLoans(LocalDate.now());
+        for (Loan overdue : overdueLoans) {
+            System.out.println("Inventory ID: " + overdue.getInventoryId()
+                    + " | Due date: " + overdue.getDueDate());
         }
 
         menu.start();

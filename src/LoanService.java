@@ -44,4 +44,17 @@ public class LoanService {
         loan.registerReturn(returnDate);
     }
 
+    public ArrayList<Loan> findOverdueLoans(LocalDate date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Check date must not be null.");
+        }
+
+        ArrayList<Loan> overdueLoans = new ArrayList<>();
+        for (Loan loan : loans) {
+            if (loan.isOverdue(date)) {
+                overdueLoans.add(loan);
+            }
+        }
+        return overdueLoans;
+    }
 }
