@@ -30,7 +30,8 @@ public class LoanService {
             throw new IllegalArgumentException("Loan date must not be null.");
         }
 
-        LocalDate dueDate = loanDate.plusDays(equipment.getLoanPeriodDays());
+        Loanable loanable = equipment;
+        LocalDate dueDate = loanDate.plusDays(loanable.getLoanPeriodDays());
         Loan loan = new Loan(equipment.getInventoryId(), borrowerName, loanDate, dueDate);
         loans.add(loan);
         return loan;

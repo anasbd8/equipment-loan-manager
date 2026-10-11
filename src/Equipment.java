@@ -1,4 +1,4 @@
-public abstract class Equipment {
+public abstract class Equipment implements Loanable {
     private final String inventoryId;
     private final String name;
 
