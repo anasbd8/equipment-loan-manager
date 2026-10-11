@@ -38,6 +38,20 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        LoanService loanService = new LoanService();
+        Equipment equipment = manager.findEquipmentById("L001");
+        Loan checkedOutLoan = loanService.checkout(equipment, "Erik Svensson", LocalDate.now());
+        System.out.println("Checkout due date: " + checkedOutLoan.getDueDate());
+        System.out.println("Checkout active: " + checkedOutLoan.isActive());
+        System.out.println("Due date is 14 days after loan date: "
+                + checkedOutLoan.getDueDate().equals(checkedOutLoan.getLoanDate().plusDays(14)));
+
+        try {
+            loanService.checkout(equipment, "Lisa Karlsson", LocalDate.now());
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+
         menu.start();
     }
 }
