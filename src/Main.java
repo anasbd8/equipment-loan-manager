@@ -19,9 +19,17 @@ public class Main {
         System.out.println("Due date: " + loan.getDueDate());
         System.out.println("Active loan: " + loan.isActive());
 
+        Loan loan1 = new Loan("L002, ", "Molly Gustavsson",  loanDate, loanDate.plusDays(14));
+        System.out.println("Borrower: " + loan1.getBorrowerName());
+        System.out.println("Due date: " + loan1.getDueDate());
+        System.out.println("Active loan: " + loan1.isActive());
+        System.out.println("Overdue on due date: " + loan.isOverdue(loan.getDueDate()));
+        System.out.println("Overdue one day after due date: " + loan.isOverdue(loan.getDueDate().plusDays(1)));
+
         loan.registerReturn(loanDate);
         System.out.println("Return date: " + loan.getReturnDate());
         System.out.println("Active after return: " + loan.isActive());
+        System.out.println("Overdue one day after due date after return: " + loan.isOverdue(loan.getDueDate().plusDays(1)));
 
         try {
             loan.registerReturn(loanDate);

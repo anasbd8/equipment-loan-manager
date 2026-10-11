@@ -73,4 +73,12 @@ public class Loan {
 
         this.returnDate = date;
     }
+
+    public boolean isOverdue(LocalDate date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Check date must not be null.");
+        }
+
+        return isActive() && date.isAfter(dueDate);
+    }
 }
