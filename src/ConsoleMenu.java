@@ -51,38 +51,51 @@ public class ConsoleMenu {
         System.out.println("3. Projector");
         System.out.print("Choice: ");
         String equipmentType = scanner.nextLine().trim();
+
+        if (!equipmentType.equals("1") && !equipmentType.equals("2")
+                && !equipmentType.equals("3")) {
+            System.out.println("Invalid equipment type. Please choose 1–3.");
+            return;
+        }
+
         try {
+            System.out.print("Enter inventory ID: ");
+            String inventoryID = scanner.nextLine().trim();
+            System.out.print("Enter equipment name: ");
+            String name = scanner.nextLine().trim();
+
+            Equipment equipment;
             switch (equipmentType) {
-                case "1":{
-                    System.out.print("Enter inventory ID:");
-                    String inventoryID = scanner.nextLine().trim();
-                    System.out.print("Enter equipment name: ");
-                    String name = scanner.nextLine().trim();
+                case "1": {
                     System.out.print("Enter RAM in GB: ");
                     int ram = Integer.parseInt(scanner.nextLine().trim());
-                    Laptop laptop = new Laptop(inventoryID, name, ram);
-                    manager.addEquipment(laptop);
-                    break;
-
-                } case "2":{
-                    System.out.print("Enter inventory ID: ");
-                    String inventoryID = scanner.nextLine().trim();
-                    System.out.print("Enter equipment name: ");
-                    String name = scanner.nextLine().trim();
-                    System.out.println("Enter Operating system: ");
-                    String operatingSystem = scanner.nextLine().trim();
-                    MobilePhone mobilePhone = new MobilePhone(inventoryID, name, operatingSystem);
-                    manager.addEquipment(mobilePhone);
+                    equipment = new Laptop(inventoryID, name, ram);
                     break;
                 }
+                case "2": {
+                    System.out.print("Enter operating system: ");
+                    String operatingSystem = scanner.nextLine().trim();
+                    equipment = new MobilePhone(inventoryID, name, operatingSystem);
+                    break;
+                }
+                case "3": {
+                    System.out.print("Enter brightness in lumens: ");
+                    int brightnessLumens = Integer.parseInt(scanner.nextLine().trim());
+                    equipment = new Projector(inventoryID, name, brightnessLumens);
+                    break;
+                }
+                default:
+                    return;
             }
+
+            manager.addEquipment(equipment);
+            System.out.println("Equipment registered successfully.");
         } catch (NumberFormatException e) {
-            System.out.println("RAM must be a whole number.");
-        }catch (IllegalArgumentException e) {
+            System.out.println("RAM or brightness must be a whole number.");
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        }
-
+    }
 
     private void findEquipment() {
         System.out.println("Enter equipment ID: ");
