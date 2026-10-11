@@ -12,7 +12,8 @@ public class Main {
         manager.addEquipment(new MobilePhone("M001", "iPhone 15 pro", "IOS"));
         manager.addEquipment(new Projector("P001", "Epson EB-FH52", 4000));
 
-        ConsoleMenu menu = new ConsoleMenu(manager);
+        LoanService loanService = new LoanService();
+        ConsoleMenu menu = new ConsoleMenu(manager, loanService);
 
         LocalDate loanDate = LocalDate.now();
         Loan loan = new Loan("L001", "Anna Andersson", loanDate, loanDate.plusDays(14));
@@ -39,7 +40,6 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        LoanService loanService = new LoanService();
         Equipment equipment = manager.findEquipmentById("L001");
         Loan checkedOutLoan = loanService.checkout(equipment, "Erik Svensson", LocalDate.now());
         System.out.println("Checkout due date: " + checkedOutLoan.getDueDate());
